@@ -1,0 +1,14 @@
+<!-- Hello World — screen.html
+     Injected by the host into div#plugin-hello_world.screen automatically.
+     Do NOT add an outer wrapper div with class="screen". -->
+
+<div class="flex flex-col items-center justify-center min-h-[60vh] gap-6 px-4">
+  <h2 class="text-xl font-semibold text-white">Hello World Plugin</h2>
+  <p class="text-sm text-gray-400">Click the button to test Hello World.</p>
+  <button id="hello_world-btn"
+          onclick="screen_js_message({action: 'clicked', message: 'Hello'})"
+          class="px-6 py-3 rounded-lg border-none bg-blue-600 text-white text-sm font-medium cursor-pointer hover:bg-blue-500 transition-colors">
+    Send Message
+  </button>
+  <div id="hello_world-result" class="hidden text-sm text-green-400 mt-2"></div>
+</div>
