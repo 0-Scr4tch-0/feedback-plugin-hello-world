@@ -1,13 +1,13 @@
 {
   "id": "hello_world",
   "name": "Hello World",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple plugin that serves as boilerplate for plugin developers and that tests data transmission between client and server and logs the transmission.",
-  "type": "audio",
+  "type": "visualization",
   "icon": "assets/thumb.png",
   "nav": { "label": "Hello World", "screen": "plugin-hello_world" },
   "screen": "screen.html",
   "script": "screen.js",
   "routes": "routes.py",
-  "category": "audio"
+  "category": "testing"
 }

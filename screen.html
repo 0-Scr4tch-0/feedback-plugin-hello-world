@@ -2,13 +2,25 @@
      Injected by the host into div#plugin-hello_world.screen automatically.
      Do NOT add an outer wrapper div with class="screen". -->
 
+<!-- Main container: centers everything vertically and horizontally on the page.
+     Uses flexbox column layout with spacing between elements.
+     min-h-[60vh] ensures it takes up at least 60% of the viewport height. -->
 <div class="flex flex-col items-center justify-center min-h-[60vh] gap-6 px-4">
   <h2 class="text-xl font-semibold text-white">Hello World Plugin</h2>
   <p class="text-sm text-gray-400">Click the button to test Hello World.</p>
+  <!-- Button that triggers the main plugin function.
+       onclick calls screen_js_message() which is defined in screen.js and exposed on window.
+       It passes an object with action: 'clicked' and message: 'Hello' — the server checks
+       for the word "hello" (case-insensitive) in the message field to validate the request. -->
   <button id="hello_world-btn"
           onclick="screen_js_message({action: 'clicked', message: 'Hello'})"
           class="px-6 py-3 rounded-lg border-none bg-blue-600 text-white text-sm font-medium cursor-pointer hover:bg-blue-500 transition-colors">
     Send Message
   </button>
+
+  <!-- Hidden div where the server response gets rendered.
+       screen.js finds this element by id and sets its innerHTML to show the full
+       round-trip log: what the client sent, what the server did, and what came back.
+       Starts hidden (class="hidden"), removed when a response arrives. -->
   <div id="hello_world-result" class="hidden text-sm text-green-400 mt-2"></div>
 </div>

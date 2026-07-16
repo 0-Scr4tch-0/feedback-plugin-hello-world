@@ -8,12 +8,12 @@ A feedBack plugin demonstrating client-server message transmission. The button o
 
 | File | Purpose |
 |---|---|
-| `plugin.json` | Manifest — id `hello_world`, nav entry, screen/script/routes, category, icon |
+| `plugin.json` | Manifest — id `hello_world`, nav entry, screen/script/routes, type, category, icon |
 | `screen.html` | UI with button calling `screen_js_message({action:'clicked', message:'Hello'})` and a result div |
 | `screen.js` | IIFE-wrapped client; exposes `window.screen_js_message()` — builds a rich payload, POSTs to server, renders structured log output |
 | `routes.py` | FastAPI `setup(app, context)` — registers POST `/api/plugins/hello_world/routes_py_message`, validates message contains "hello", returns `Hello World!` response with logs array |
 | `GOALS.md` | Original build specification |
-| `README.md` | Placeholder for user-facing docs |
+| `README.md` | User-facing guide with usage instructions and key patterns to copy |
 
 ## Actual API shape
 
@@ -37,9 +37,9 @@ A feedBack plugin demonstrating client-server message transmission. The button o
 
 ## Known issues / code notes
 
-- `output_class` in `screen.js:35` is assigned **after** it's referenced in the `log()` function at line 21. At runtime, the `log()` call inside `screen_js_message()` executes after the assignment, so it works — but the hoisting mismatch could confuse static analysis.
-- The `catch` block at `screen.js:88` references `data.logs` which would be undefined if the fetch itself threw — currently that reference error is silently swallowed but won't produce the expected HTML.
-- `plugin.json` declares both `"category": "audio"` and `"type": "audio"` (the spec uses `type`; `category` is v3 Pedalboard metadata). This is harmless — both are optional and unknown keys are ignored.
+- `output_class` is declared before the `log()` function that uses it — no hoisting issue.
+- The `catch` block in `screen_js_message()` uses `safeLogs` which safely falls back to `[]` if `data` or `data.logs` is undefined.
+- `plugin.json` uses `"type": "audio"` and `"category": "audio"` per the plugin spec — `type` is the content type, `category` is the grouping hint for the plugin list.
 
 ## Verification checklist
 
